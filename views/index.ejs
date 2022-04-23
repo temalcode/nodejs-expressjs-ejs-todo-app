@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMALCODE | NodeJS Todo App</title>
+
+    <%- include('style') %> 
+</head>
+
+<body>
+
+    <h2 class="title">NodeJS Todo App</h2>
+
+    <form method="post" action="/create" class="create-todo">
+        <input type="text" name="todo" id="todo" class="todo-input" required> <br>
+        <input type="submit" value="Add" class="todo-btn">
+    </form>
+
+
+    <% allTodos.map(item => { %>
+        <div class="card">
+            <p><%= item.todo %></p>
+
+            <form method="POST" action="/del:<%=item._id%>?_method=DELETE">
+                <button type="submit">Done</button>
+              </form>
+        </div>
+    <% }) %>
+
+    </body>
+</html>
