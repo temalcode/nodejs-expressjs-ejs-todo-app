@@ -2,11 +2,15 @@ const express = require('express')
 const router = express.Router()
 const model  = require('../Model/model.js')
 
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 router.post('/create', async function(req, res){
     try{
         const newTodo = new model({
-            todo: req.body.todo
+            todo: DOMPurify.sanitize(req.body.todo)
         })
         await newTodo.save()
         res.status(201).redirect('/')
